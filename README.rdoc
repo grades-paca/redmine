@@ -3,3 +3,14 @@
 Redmine is a flexible project management web application written using Ruby on Rails framework.
 
 More details can be found in the doc directory or on the official website http://www.redmine.org
+
+== Installation de Redmine ORU via Docker
+
+1. Installer git puis récupérer et déployer la dernière version des sources depuis l'adresse https://github.com/grades-paca/redmine
+    1. git clone git@github.com:grades-paca/redmine.git .
+    2. Récupérer la version souhaitée. Exemple : git checkout 3.4.5-oru
+2. Installer docker-compose puis déployer les services :
+    1. Installer docker-compose version 1.13.0+ : https://docs.docker.com/compose/install/
+    2. Copier et renommer le fichier docker-compose.yml.dist en docker-compose.yml. Si des services utilisent déjà les ports 5050, 5151, 5252 de votre machine, il faut les libérer ou modifier la configuration du fichier docker-compose.yml ainsi que des services associés dans le dossier .docker.
+3. Instancier les containers via la commande suivante : docker-compose up
+4. Redmine est normalement accessible à l'adresse http://localhost:5050 et phpMyAdmin à l'adresse http://localhost:5252

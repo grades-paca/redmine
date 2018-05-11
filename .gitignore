@@ -36,6 +36,8 @@
 /tmp/thumbnails/*
 /vendor/cache
 *.rbc
+/docker-compose.yml
+/.docker/mysql/data/*
 
 /.bundle
 /Gemfile.lock

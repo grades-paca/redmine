@@ -1,0 +1,67 @@
+version: "3.2"
+
+services:
+    ruby:
+        container_name: redmine_ruby
+        build: ./.docker/ruby
+        ports:
+            - 5050:3000
+        environment:
+            - RAILS_ENV=development
+            - REDMINE_DB_MYSQL=redmine_mysql
+            - REDMINE_DB_USERNAME=redmine
+            - REDMINE_DB_PASSWORD=redmine
+            - REDMINE_DB_PORT=3306
+        volumes:
+            - .:/usr/src/redmine:rw
+            - .bundle:/usr/local/bundle/:rw
+        networks:
+            ror_net:
+                ipv4_address: 172.25.0.50
+        extra_hosts:
+            - "ror-dev:172.25.0.4"
+        depends_on:
+          - mysql
+        dns_search:
+            - redmine_ruby
+
+    mysql:
+        container_name: redmine_mysql
+        build: ./.docker/mysql
+        ports:
+            - 5151:3306
+        environment:
+            - MYSQL_USER=redmine
+            - MYSQL_PASSWORD=redmine
+            - MYSQL_DATABASE=redmine
+            - MYSQL_ROOT_HOST=redmine_pma.ror_net
+            - MYSQL_ROOT_PASSWORD=orupaca
+        volumes:
+            - ./.docker/mysql/data/:/var/lib/mysql:rw
+            - ./.docker/mysql/import/:/docker-entrypoint-initdb.d
+        networks:
+            ror_net:
+                ipv4_address: 172.25.0.51
+        dns_search:
+            - redmine_mysql
+
+    phpmyadmin:
+        container_name: redmine_pma
+        image: phpmyadmin/phpmyadmin:4.6
+        ports:
+            - 5252:80
+        environment:
+            MYSQL_USERNAME: redmine
+            MYSQL_ROOT_PASSWORD: orupaca
+            PMA_HOST: redmine_mysql
+        networks:
+            ror_net:
+                ipv4_address: 172.25.0.52
+        depends_on:
+          - mysql
+        dns_search:
+            - redmine_pma
+
+networks:
+    ror_net:
+        external: true
