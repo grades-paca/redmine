@@ -288,7 +288,7 @@ fr:
   field_notes: Notes
   field_is_closed: Demande fermée
   field_is_default: Valeur par défaut
-  field_tracker: Tracker
+  field_tracker: Type (tracker)
   field_subject: Sujet
   field_due_date: Echéance
   field_assigned_to: Assigné à
