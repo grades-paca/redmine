@@ -22,7 +22,7 @@ class CustomFieldsController < ApplicationController
   before_action :require_admin
   before_action :build_new_custom_field, :only => [:new, :create]
   before_action :find_custom_field, :only => [:edit, :update, :destroy]
-  accept_api_auth :index
+  accept_api_auth :index, :update
 
   def index
     respond_to do |format|
@@ -65,11 +65,13 @@ class CustomFieldsController < ApplicationController
           redirect_back_or_default edit_custom_field_path(@custom_field)
         }
         format.js { head 200 }
+        format.api { render_api_ok }
       end
     else
       respond_to do |format|
         format.html { render :action => 'edit' }
         format.js { head 422 }
+        format.api  { render_validation_errors(@custom_field) }
       end
     end
   end
