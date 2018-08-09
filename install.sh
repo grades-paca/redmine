@@ -64,4 +64,9 @@ fi
 # installation des plugins
 cd $DIR
 bundle install
-bundle exec rake redmine:plugins:migrate RAILS_ENV=development
+if [ "$#" -ne 1 ]; then
+    environnement=production
+else
+    environnement=$1
+fi
+bundle exec rake redmine:plugins:migrate RAILS_ENV=$environnement

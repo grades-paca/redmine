@@ -146,7 +146,7 @@ case "$1" in
 		fi
 
 		chmod +x install.sh
-		/bin/bash install.sh
+		/bin/bash install.sh development
 
 		set -- gosu redmine "$@"
 		;;
