@@ -42,7 +42,7 @@ if [ ! -d "select_to_select2" ]; then
     git clone -s https://github.com/arlin2050/select_to_select2.git
     chmod 755 select_to_select2
     cd select_to_select2
-    git checkout 0.1.1
+    git checkout 0.1.2
 fi
 
 cd $PLUGINS
